@@ -1,12 +1,13 @@
 import "./style.css";
 import { useState } from "react";
 
-function Main() {
+function SingleInputs() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [address, setAddress] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ function Main() {
     setError("");
     setSuccess("");
 
-    if (!name || !age || !password) {
+    if (!name || !age | !address || !password) {
       setError("Preencha todos os campos");
       return;
     }
@@ -30,10 +31,6 @@ function Main() {
     }
 
     setSuccess("Formulário enviado com sucesso");
-
-    setName("");
-    setAge("");
-    setPassword("");
   };
 
   return (
@@ -55,6 +52,13 @@ function Main() {
           />
 
           <input
+            type="text"
+            placeholder="Digite seu endereço"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+
+          <input
             type="password"
             placeholder="Digite sua senha"
             value={password}
@@ -64,10 +68,23 @@ function Main() {
           {success && <span className="success">{success}</span>}
 
           <button type="submit">Salvar</button>
+          <button
+            type="button"
+            onClick={() => {
+              setName("");
+              setAge("");
+              setAddress("");
+              setPassword("");
+              setError("");
+              setSuccess("");
+            }}
+          >
+            Limpar
+          </button>
         </form>
       </div>
     </div>
   );
 }
 
-export default Main;
+export default SingleInputs;
